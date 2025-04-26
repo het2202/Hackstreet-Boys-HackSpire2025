@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Menta Wellness</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #93c5fd;
+            --accent-color: #dbeafe;
+            --text-color: #333;
+            --light-color: #f8fafc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            background-color: var(--light-color);
+        }
+
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            padding: 4rem 0;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .page-header h1 {
+            font-weight: 700;
+            color: white;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: white;
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 10px 25px;
+            font-weight: 600;
+            border-radius: 30px;
+        }
+
+        .btn-primary:hover {
+            background-color: #3a5b8c;
+            border-color: #3a5b8c;
+        }
+
+        .form-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .session-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .session-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .session-card.selected {
+            border: 2px solid var(--primary-color);
+        }
+
+        .social-login-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 15px;
+            border-radius: 30px;
+            margin-bottom: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .google-btn {
+            background-color: #ffffff;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .facebook-btn {
+            background-color: #3b5998;
+            color: white;
+            border: none;
+        }
+
+        .apple-btn {
+            background-color: #000000;
+            color: white;
+            border: none;
+        }
+
+        .form-control {
+            border-radius: 30px;
+            padding: 12px 20px;
+        }
+
+        .time-slot {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .time-slot:hover,
+        .time-slot.selected {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .tab-content {
+            padding: 20px 0;
+        }
+
+        .tab-pane {
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .nav-tabs .nav-link {
+            color: var(--text-color);
+            border-radius: 0;
+            padding: 10px 20px;
+            font-weight: 500;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">AI Menta Wellness</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="activity.html">Your Activity</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services.html#footer">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Tabs for demo navigation -->
+    <ul class="nav nav-tabs justify-content-center mt-3" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button"
+                role="tab" aria-controls="login" aria-selected="true">Login Page</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="booking-tab" data-bs-toggle="tab" data-bs-target="#booking" type="button"
+                role="tab" aria-controls="booking" aria-selected="false">Book Session Page</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <!-- Login Page -->
+        <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+            <!-- Page Header -->
+            <section class="page-header">
+                <div class="container text-center">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <h1 class="display-4 mb-3">Welcome Back</h1>
+                            <p class="lead">Sign in to continue your wellness journey</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Login Form -->
+            <section class="py-5">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="card form-card">
+                                <div class="card-body p-4 p-md-5">
+                                    <form>
+                                        <div class="mb-4">
+                                            <label for="email" class="form-label">Email address</label>
+                                            <input type="email" class="form-control" id="email"
+                                                placeholder="name@example.com">
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="password" class="form-label">Password</label>
+                                            <input type="password" class="form-control" id="password"
+                                                placeholder="••••••••">
+                                        </div>
+                                        <div class="mb-4 d-flex justify-content-between align-items-center">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="rememberMe">
+                                                <label class="form-check-label" for="rememberMe">
+                                                    Remember me
+                                                </label>
+                                            </div>
+                                            <a href="#" class="text-primary">Forgot password?</a>
+                                        </div>
+                                        <div class="d-grid mb-4">
+                                            <button type="submit" class="btn btn-primary btn-lg">Sign In</button>
+                                        </div>
+                                        <div class="text-center mb-4">
+                                            <p>Don't have an account? <a href="#" class="text-primary">Create one</a>
+                                            </p>
+                                        </div>
+                                        <div class="separator mb-4 d-flex align-items-center">
+                                            <hr class="flex-grow-1">
+                                            <span class="px-3 text-muted">or continue with</span>
+                                            <hr class="flex-grow-1">
+                                        </div>
+                                        <div class="social-login">
+                                            <button type="button" class="btn w-100 social-login-btn google-btn mb-3">
+                                                <img src="/api/placeholder/20/20" alt="Google" class="me-2" width="20">
+                                                Continue with Google
+                                            </button>
+                                            <button type="button" class="btn w-100 social-login-btn facebook-btn mb-3">
+                                                <img src="/api/placeholder/20/20" alt="Facebook" class="me-2"
+                                                    width="20"> Continue with Facebook
+                                            </button>
+                                            <button type="button" class="btn w-100 social-login-btn apple-btn">
+                                                <img src="/api/placeholder/20/20" alt="Apple" class="me-2" width="20">
+                                                Continue with Apple
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Book Session Page -->
+        <div class="tab-pane fade" id="booking" role="tabpanel" aria-labelledby="booking-tab">
+            <!-- Page Header -->
+            <section class="page-header">
+                <div class="container text-center">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <h1 class="display-4 mb-3">Book Your Session</h1>
+                            <p class="lead">Choose the service that fits your needs and schedule your appointment</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Booking Form -->
+            <section class="py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <!-- Step 1: Choose Service -->
+                            <div class="mb-5">
+                                <h2 class="fw-bold mb-4">1. Choose Service Type</h2>
+                                <div class="row g-4">
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="card session-card h-100 selected">
+                                            <div class="card-body text-center p-4">
+                                                <div class="mb-3">
+                                                    <img src="/api/placeholder/50/50" alt="Video Analysis" class="mb-3">
+                                                    <h3 class="h5">Video Analysis</h3>
+                                                </div>
+                                                <p class="small text-muted mb-0">3-minute facial expression analysis</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="card session-card h-100">
+                                            <div class="card-body text-center p-4">
+                                                <div class="mb-3">
+                                                    <img src="/api/placeholder/50/50" alt="Voice Analysis" class="mb-3">
+                                                    <h3 class="h5">Voice Analysis</h3>
+                                                </div>
+                                                <p class="small text-muted mb-0">2-minute voice tone analysis</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="card session-card h-100">
+                                            <div class="card-body text-center p-4">
+                                                <div class="mb-3">
+                                                    <img src="/api/placeholder/50/50" alt="Daily Quiz" class="mb-3">
+                                                    <h3 class="h5">Daily Quiz</h3>
+                                                </div>
+                                                <p class="small text-muted mb-0">5-minute mood assessment quiz</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="card session-card h-100">
+                                            <div class="card-body text-center p-4">
+                                                <div class="mb-3">
+                                                    <img src="/api/placeholder/50/50" alt="Doctor Consultation"
+                                                        class="mb-3">
+                                                    <h3 class="h5">Doctor Consultation</h3>
+                                                </div>
+                                                <p class="small text-muted mb-0">20-minute professional consultation</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Choose Date and Time -->
+                            <div class="mb-5">
+                                <h2 class="fw-bold mb-4">2. Select Date & Time</h2>
+                                <div class="card form-card">
+                                    <div class="card-body p-4">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4 mb-md-0">
+                                                <label class="form-label">Select Date</label>
+                                                <input type="date" class="form-control" value="2025-04-27">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Available Time Slots</label>
+                                                <div>
+                                                    <span class="time-slot selected">9:00 AM</span>
+                                                    <span class="time-slot">10:30 AM</span>
+                                                    <span class="time-slot">1:00 PM</span>
+                                                    <span class="time-slot">2:30 PM</span>
+                                                    <span class="time-slot">4:00 PM</span>
+                                                    <span class="time-slot">5:30 PM</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Your Information -->
+                            <div class="mb-5">
+                                <h2 class="fw-bold mb-4">3. Your Information</h2>
+                                <div class="card form-card">
+                                    <div class="card-body p-4">
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="firstName" class="form-label">First Name</label>
+                                                    <input type="text" class="form-control" id="firstName">
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="lastName" class="form-label">Last Name</label>
+                                                    <input type="text" class="form-control" id="lastName">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="email">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="phone" class="form-label">Phone Number</label>
+                                                <input type="tel" class="form-control" id="phone">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="notes" class="form-label">Special Requests
+                                                    (Optional)</label>
+                                                <textarea class="form-control" id="notes" rows="3"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Book Now Button -->
+                            <div class="d-grid mb-5">
+                                <button type="submit" class="btn btn-primary btn-lg">Book Now</button>
+                            </div>
+                        </div>
+
+                        <!-- Session Information Sidebar -->
+                        <div class="col-lg-4">
+                            <div class="card form-card sticky-top" style="top: 100px; z-index: 10;">
+                                <div class="card-body p-4">
+                                    <h3 class="h5 mb-4">Session Information</h3>
+
+                                    <div class="d-flex align-items-center mb-4">
+                                        <img src="/api/placeholder/60/60" alt="Video Analysis" class="me-3">
+                                        <div>
+                                            <h4 class="h6 mb-1">Video Analysis</h4>
+                                            <p class="text-muted mb-0">3-minute session</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <p class="mb-3">Our AI technology analyzes facial expressions to detect
+                                            emotional states and provide personalized insights.</p>
+
+                                        <h5 class="h6 mb-2">Benefits:</h5>
+                                        <ul class="small text-muted mb-0">
+                                            <li>Identify emotional patterns</li>
+                                            <li>Track mood changes over time</li>
+                                            <li>Receive personalized recommendations</li>
+                                            <li>Early detection of stress signals</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="border-top pt-4">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Date:</span>
+                                            <span class="fw-bold">April 27, 2025</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Time:</span>
+                                            <span class="fw-bold">9:00 AM</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Duration:</span>
+                                            <span class="fw-bold">3 minutes</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <span>Price:</span>
+                                            <span class="fw-bold">Free</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple script to toggle between selected session cards
+        document.querySelectorAll('.session-card').forEach(card => {
+            card.addEventListener('click', function () {
+                document.querySelectorAll('.session-card').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        // Simple script to toggle between selected time slots
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            slot.addEventListener('click', function () {
+                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+
+</html>
